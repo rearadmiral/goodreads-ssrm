@@ -1,0 +1,23 @@
+{
+  "name": "goodreads-ssrm",
+  "version": "0.0.2",
+  "dependencies": {
+    "wait.for": ">=0.6.0",
+    "jsdom": ">=1.2.0"
+  },
+  "devDependencies": {},
+  "files": [
+    "goodreads-ssrm.js"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "description": "connect middleware that uses jdom to server-side render angular pages",
+  "main": "goodreads-ssrm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/rearadmiral/goodreads-ssrm",
+  "author": "rearadmiral",
+  "license": "MIT"
+}
