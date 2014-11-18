@@ -2,6 +2,7 @@
 'use strict';
 
 var wait = require('wait.for');
+var fs = require('fs');
 var jsdom = require('jsdom');
 
 var jsDomGet = function(appFilename, url, callback) {
@@ -49,7 +50,21 @@ var isAngularRequest = function(url) {
   return url.match(/\./) === null;
 }
 
-var middlewareFactory = function(appFilename) {
+var middlewareFactory = function(appFilename, options) {
+
+  if (options !== undefined && options.skipSsr === true) {
+    return function(req, res, next) {
+        if (isAngularRequest(req.url)) {
+          console.log('[GR-SSRM] skipped SSR. just sending ' + appFilename);
+          res.writeHead(200, {'Content-Type': 'text/html'});
+          res.write(fs.readFileSync(appFilename));
+          res.end();
+        } else {
+          next();
+        }
+    }
+  }
+
   return function(req, res, next) {
     if (isAngularRequest(req.url)) {
       console.log('[GR-SSRM] server-side rendering ng-app ' + appFilename + ' with route ' + req.url);
