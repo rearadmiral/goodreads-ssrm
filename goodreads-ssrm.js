@@ -17,11 +17,6 @@ var jsDomGet = function(appFilename, url, callback) {
       window.scrollTo = function() {};
 
       window.history.pushState(null, null, url);
-    },
-    done: function(errors, window) {
-      console.log(errors);
-      window.document.body.setAttribute('data-prerendered', 'true');
-      callback(errors, window);
     }
   });
 };
