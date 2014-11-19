@@ -13,14 +13,14 @@ var jsDomGet = function(appFilename, url, callback) {
       QuerySelector: true
     },
     created: function(errors, window) {
-
       // angular needs this but jsdom doesn't provide it
       window.scrollTo = function() {};
 
       window.history.pushState(null, null, url);
     },
     done: function(errors, window) {
-      console.log('[DEBUG] window.angular: ' + window.angular);
+      console.log(errors);
+      window.document.body.setAttribute('data-prerendered', 'true');
       callback(errors, window);
     }
   });
@@ -42,7 +42,7 @@ var serverSideRender = function(appFilename, req, res) {
     res.end();
   } catch (err) {
     console.error(err);
-    res.end(':-(');
+    res.end('<html><head><title>:-(</title></head><body><img src="http://tailf.blob.core.windows.net/cats/500.jpg"/></body></html>');
   }
 };
 
